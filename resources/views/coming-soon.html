@@ -1,0 +1,77 @@
+@extends('master') @section('content');
+
+<div style="background-image: url('img/parallax-1.jpg');" class="coming-full-screen dark-overlay">
+    <div class="container text-center text-white text-shadow overlay-content py-5">
+        <p class="social mb-5"><a href="#" target="_blank" title="twitter" class="text-white text-hover-primary"><i class="fa fa-twitter mx-2">       </i></a><a href="#" target="_blank" title="facebook" class="text-white text-hover-primary"><i class="fa fa-facebook mx-2">       </i></a>
+            <a
+                href="#" target="_blank" title="instagram" class="text-white text-hover-primary"><i class="fa fa-instagram mx-2">       </i></a><a href="#" target="_blank" title="pinterest" class="text-white text-hover-primary"><i class="fa fa-pinterest mx-2">       </i></a>
+                <a href="#" target="_blank" title="vimeo" class="text-white text-hover-primary"><i class="fa fa-vimeo mx-2">       </i></a>
+        </p>
+        <h1 class="mb-5">Hub store is coming soon.</h1>
+        <h3 class="mb-5">We are still tweaking few details, stay tuned!</h3>
+        <!-- countdown-->
+        <div id="countdown" class="row mb-5 py-4"></div>
+        <div class="mailing-list mb-5">
+            <h5 class="font-weight-light mb-4">Join our mailing list and we will let you know all the news.</h5>
+            <form action="#" class="form-inline justify-content-center">
+                <div class="form-group">
+                    <label for="email" class="sr-only"></label>
+                    <input type="email" placeholder="jane.doe@example.com" id="email" class="form-control bg-white">
+                    <button class="btn btn-primary ml-2">subscribe</button>
+                </div>
+            </form>
+        </div>
+        <p>&copy;2018 Hub store.</p>
+    </div>
+</div>
+<button type="button" data-toggle="collapse" data-target="#style-switch" id="style-switch-button" class="btn btn-primary btn-sm d-none d-lg-block"><i class="fa fa-cog fa-2x"></i></button>
+<div id="style-switch" class="collapse">
+    <h4 class="text-uppercase">Select theme colour</h4>
+    <form class="mb-3">
+        <select name="colour" id="colour" class="form-control style-switch-select">
+            <option value="">select colour variant</option>
+            <option value="default">violet</option>
+            <option value="pink">pink</option>
+            <option value="green">green</option>
+            <option value="red">red</option>
+            <option value="sea">sea</option>
+            <option value="blue">blue</option>
+        </select>
+    </form>
+    <p><img src="img/template-mac.png" alt="" class="img-fluid"></p>
+    <p class="text-muted text-small">Stylesheet switching is done via JavaScript and can cause a blink while page loads. This will not happen in your production code.</p>
+</div>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js">
+</script>
+<script src="vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
+<script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="vendor/nouislider/nouislider.min.js"></script>
+<script src="vendor/jquery-countdown/jquery.countdown.min.js"></script>
+<script src="vendor/masonry-layout/masonry.pkgd.min.js"></script>
+<script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<!-- masonry -->
+<script>
+    $(function() {
+        var $grid = $('.masonry-wrapper').masonry({
+            itemSelector: '.item',
+            columnWidth: '.item',
+            percentPosition: true,
+            transitionDuration: 0,
+        });
+
+        $grid.imagesLoaded().progress(function() {
+            $grid.masonry();
+        });
+    })
+</script>
+<!-- Main Template File-->
+<script src="js/front.js"></script>
+</body>
+
+<!-- Mirrored from demo.bootstrapious.com/hub/1-4-2/coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 25 Sep 2019 12:27:27 GMT -->
+
+</html>
