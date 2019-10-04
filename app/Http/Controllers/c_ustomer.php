@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\customer;
+use Validator, Redirect, Response;
+use App\custom;
 use Session;
+use DB;
 
-
-class customers extends Controller
+class c_ustomer extends Controller
 {
-  //
 
   public function login(Request $request)
   {
@@ -54,16 +54,16 @@ class customers extends Controller
   public function register(Request $request)
   {
     $this->validate($request, [
-      'username' => 'required | unique:users',
-      'password' => 'required | same:password2',
-      'email' => 'required | email | unique:users',
+      'username' => 'required',
+      'password' => 'required',
+      'email' => 'required',
     ]);
 
-    $user = new customer();
+    $user = new custom();
     $user->username = $request->username;
     $user->email = $request->email;
     $user->password = password_hash($request->password, PASSWORD_BCRYPT);
-    $user->role = 100;
+
     if ($user->save()) {
       Session::flash('flash', 'Registration successful, You can now login.');
       Session::put('name', $user->username);
@@ -72,5 +72,17 @@ class customers extends Controller
       Session::flash('flash', 'Registration Un successful');
       return redirect('/');
     }
+  }
+  public function cus_accoutnt(Request $req)
+  {
+    return view('customer-account');
+  }
+  public function order_view(Request $reqs)
+  {
+    return view('customer-order');
+  }
+  public function orders_view(Request $class)
+  {
+    return view('customer-orders')->with('active', $class);
   }
 }

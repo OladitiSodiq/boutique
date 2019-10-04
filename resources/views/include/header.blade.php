@@ -96,11 +96,11 @@
                     </div>
                     <div class="col-lg-3"><strong class="text-uppercase">Customer</strong>
                       <ul class="list-unstyled">
-                        <li><a href="customer-login.html">Login/sign up</a></li>
-                        <li><a href="customer-orders.html">Orders</a></li>
-                        <li><a href="customer-order.html">Order detail</a></li>
+                        <li><a href="/customer-login">Login/sign up</a></li>
+                        <li><a href="/customer-orders">Orders</a></li>
+                        <li><a href="/customer-order">Order detail</a></li>
                         <li><a href="customer-addresses.html">Addresses</a></li>
-                        <li><a href="customer-account.html">Profile</a></li>
+                        <li><a href="/customer-account">Profile</a></li>
                       </ul>
                     </div>
                   </div>
@@ -178,7 +178,24 @@
           <!-- Search Button-->
           <div class="search"><i class="icon-search"></i></div>
           <!-- User Not Logged - link to login page-->
-          <div class="user"> <a id="userdetails" href="customer-login.html" class="user-link"><i class="icon-profile">                   </i></a></div>
+          @if(Session::get('username'))
+          <div class="user"> 
+            <a id="userdetails" href="/customer-account" class="user-link">
+              {{ Session::get('username') }}
+            <i class="icon-profile">                   
+            </i>
+          </a>
+          </div>
+          @elseif(!Session::get('username'))
+          <div class="user"> 
+            <a id="userdetails" href="/customer-login" class="user-link">
+               Login
+            <i class="icon-profile">                   
+            </i>
+          </a>
+          </div>
+          @endif
+         
           <!-- Cart Dropdown-->
           <div class="cart dropdown show"><a id="cartdetails" href="https://example.com/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
               <div class="cart-no">1</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>

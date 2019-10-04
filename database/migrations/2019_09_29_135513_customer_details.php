@@ -20,6 +20,7 @@ class CustomerDetails extends Migration
         $table->string('firstname')->nullable();
         $table->string('lastname')->nullable();
         $table->string('surname')->nullable();
+        $table->string('username')->nullable();
         $table->string('email')->nullable();
         $table->timestamp('email_verified_at')->nullable();
         $table->string('provider');
