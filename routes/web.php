@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-  return view('index');
-});
+Route::get('/', 'c_ustomer@productLandingPage')->name('home');
+
 
 Route::get('/customer-login', function () {
   if (Session::get('logged_in')) {
@@ -39,7 +38,8 @@ Route::group(['middleware' => ['isAdmin', 'isValidUser']], function () {
   Route::get('/customer-account', 'c_ustomer@cus_accoutnt');
   Route::get('/customer-order', 'c_ustomer@order_view');
   Route::get('/customer-orders', 'c_ustomer@orders_view');
-  Route::post('/add-new-product', 'create_food_table@add_food');
+  Route::post('/add-new-product', 'c_ustomer@add_food');
+  Route::get('/change_password', 'c_ustomer@chnge_pword');
   // Route::get('/catalogue', 'ProductController@productCatalogue');
   // Route::get('/orders/all', 'OrdersController@show_all_orders');
   // Route::get('/orders/new', 'OrdersController@show_new_orders');

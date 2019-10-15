@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator, Redirect, Response;
 use App\custom;
+use App\products;
 use Session;
 use DB;
 
@@ -84,5 +85,22 @@ class c_ustomer extends Controller
   public function orders_view(Request $class)
   {
     return view('customer-orders')->with('active', $class);
+  }
+  public function chnge_pword(Request $reqss)
+  {
+    return view('change_password');
+  }
+  public function productLandingPage()
+  {
+
+    $all = products::all();
+
+    $mens = 'men';
+    $men = products::where('category', $mens)->get();
+
+    $females = 'female';
+    $female = products::where('category', $females)->get();
+
+    return view('index', compact('all', 'men', 'female'));
   }
 }
