@@ -103,4 +103,45 @@ class c_ustomer extends Controller
 
     return view('index', compact('all', 'men', 'female'));
   }
+  public function ajaxDesc(Request $req)
+  {
+    $product = products::find($req->id);
+    return response()->json(['error' => false, 'msg' => 'desc successful', 'data' => $product]);
+  }
+
+  public function updateProfile(Request $request)
+  {
+    $this->validate($request, [
+      'user_id' => 'required',
+      // 'email' => 'required | email | unique:users',
+      'firstname' => 'required',
+      'lastname' => 'required',
+      'surname' => 'required',
+      'username' => 'nullable',
+      'email' => 'required',
+      'address' => 'required',
+      'state' => 'required',
+      'country' => 'required',
+      'phone' => 'required | numeric',
+      'age' => 'required',
+    ]);
+
+    // dd($request);
+    $user = custom::find($request->user_id);
+    // $user->email = $request->email;
+    $user->firstname = $request->firstname;
+    $user->lastname = $request->lastname;
+    $user->street = $request->street;
+    $user->street2 = $request->street2;
+    $user->zip = $request->zip;
+    $user->city = $request->city;
+    $user->state = $request->state;
+    $user->country = $request->country;
+    $user->phone = $request->phone;
+
+    if ($user->save()) {
+      Session::flash('flash', 'Profile updated successfully.');
+      return redirect()->route('user.account');
+    }
+  }
 }

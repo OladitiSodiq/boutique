@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'c_ustomer@productLandingPage')->name('home');
-
+Route::post('/ajax-desc', 'c_ustomer@ajaxDesc')->name('ajax.desc');
 
 Route::get('/customer-login', function () {
   if (Session::get('logged_in')) {
@@ -34,7 +34,7 @@ Route::view('/register_success', 'register_success');
 
 
 Route::group(['middleware' => ['isAdmin', 'isValidUser']], function () {
-
+  // account_update
   Route::get('/customer-account', 'c_ustomer@cus_accoutnt');
   Route::get('/customer-order', 'c_ustomer@order_view');
   Route::get('/customer-orders', 'c_ustomer@orders_view');

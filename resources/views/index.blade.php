@@ -82,17 +82,18 @@
 					@foreach($all as $product)
               <div class="item">
                 <div class="product is-gray">
-                  <div class="image d-flex align-items-center justify-content-center"><img src="img/hoodie-man-1.png" alt="product" class="img-fluid">
+                  <div class="image d-flex align-items-center justify-content-center"><img src="img/{{ $product->image }}" alt="product" class="img-fluid">
                     <div class="hover-overlay d-flex align-items-center justify-content-center">
                       <div class="CTA d-flex align-items-center justify-content-center">
                         <a href="#" class="add-to-cart">
                         <i class="fa fa-shopping-cart"></i>
                       </a>
+                      <img src="img/{{ $product->image }}" >
                       <a href="detail.html" class="visit-product active">
                         <i class="icon-search"></i>View
                       </a>
-                      <a href="#" data-id='{{ $product->id }}' data-toggle="modal" data-target="#exampleModal" class="quick-view"><i class="fa fa-arrows-alt"></i>
-                      </a>
+                      <button type="button" data-id='{{ $product->id }}' data-toggle="modal" data-target="#exampleModal" class="quick_view"><i class="fa fa-arrows-alt"></i>
+                      </button>
                     </div>
                     </div>
                   </div>
@@ -224,20 +225,20 @@
     </section>
     <!-- Overview Popup    -->
     <div id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade overview">
-      <div role="document" class="modal-dialog">
+      {{-- <div role="document" class="modal-dialog"> --}}
         <div class="modal-content">
           <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="icon-close"></i></span></button>
           <div class="modal-body"> 
             <div class="ribbon-primary text-uppercase">Sale</div>
             <div class="row d-flex align-items-center">
-              <div class="image col-lg-5"><img src="img/shirt.png" alt="..." class="img-fluid d-block"></div>
+              <div class="image col-lg-5"><img id="modal-img" src="" class="img-fluid d-block"></div>
               <div class="details col-lg-7">
-                <h2>Lose Oversized Shirt</h2>
+                <h2 id="modal-product-name"></h2>
                 <ul class="price list-inline">
-                  <li class="list-inline-item current">$65.00</li>
-                  <li class="list-inline-item original">$90.00</li>
+                  <li class="list-inline-item current" id="modal-product-discountedprice">$65.00</li>
+                  <li class="list-inline-item original" id ="modal-product-fullprice">$90.00</li>
                 </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
+                <p id ="modal-product-shortdesc"></p>
                 <div class="d-flex align-items-center">
                   <div class="quantity d-flex align-items-center">
                     <div class="dec-btn">-</div>
@@ -252,8 +253,8 @@
                   </select>
                 </div>
                 <ul class="CTAs list-inline">
-                  <li class="list-inline-item"><a href="#" class="btn btn-template wide"> <i class="fa fa-shopping-cart"></i>Add to Cart</a></li>
-                  <li class="list-inline-item"><a href="#" class="visit-product active btn btn-template-outlined wide"> <i class="icon-heart"></i>Add to wishlist</a></li>
+                  <li class="list-inline-item"><button id="modal-add-to-cart" data-id='' class="btn btn-template wide"> <i class="fa fa-shopping-cart"></i>Add to Cart</button></li>
+                  <li class="list-inline-item"><button data-id='' onclick="addItemToWishlist(this.id, 'desc')" class="visit-product active btn btn-template-outlined wide"> <i class="icon-heart"></i>Add to wishlist</button></li>
                 </ul>
               </div>
             </div>
@@ -262,7 +263,9 @@
       </div>
     </div>
     <div id="scrollTop"><i class="fa fa-long-arrow-up"></i></div>
-    @stop
+    <meta name="_token" content="{{ csrf_token() }}">
+@stop
+
     @section('title')
       landing Page
     @stop

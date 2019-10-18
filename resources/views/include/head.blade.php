@@ -62,3 +62,4 @@
 </script>
 <!-- Main Template File-->
 <script src="js/front.js"></script>
+<script src="js/main.js"></script>

@@ -25,22 +25,41 @@
             @include('sidebar')
           </div>
           <div class="col-lg-8 col-xl-9 pl-lg-3">
-            
+            <form action="/account_update" method="post">
+                  
+              @if ($errors->any())
+                  <div >
+                      <ul class="alert alert-danger">
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+
+              <div style="margin: 30px;">
+                  @if( Session::has('flash') )
+                      <div class="alert alert-danger">
+                          {{ Session::get('flash') }}
+                      </div>
+                  @endif
+              </div>
+                 {{ csrf_field() }}
           
             <div class="block-header mb-5">
               <h5>Personal details</h5>
             </div>
-            <form class="content-block">
+            <form class="content-block" >
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="firstname" class="form-label">Firstname</label>
-                    <input id="firstname" type="text" class="form-control">
+                    <input id="firstname" type="text" name="firstname" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="lastname" class="form-label">Lastname</label>
+                    <label for="lastname" name="lastname"  class="form-label">Lastname</label>
                     <input id="lastname" type="text" class="form-control">
                   </div>
                 </div>
@@ -49,14 +68,14 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="company" class="form-label">Company</label>
-                    <input id="company" type="text" class="form-control">
+                    <label for="company" class="form-label">Surname</label>
+                    <input id="company" type="text" name="surname" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="street" class="form-label">Street</label>
-                    <input id="street" type="text" class="form-control">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="street" type="text" name="email" class="form-control">
                   </div>
                 </div>
               </div>
@@ -64,26 +83,21 @@
               <div class="row">
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
-                    <label for="city" class="form-label">Company</label>
-                    <input id="city" type="text" class="form-control">
+                    <label for="address" class="form-label">Address</label>
+                    <input id="city" type="text" name="address" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
-                    <label for="zip" class="form-label">ZIP</label>
-                    <input id="zip" type="text" class="form-control">
+                    <label for="zip" class="form-label">State</label>
+                    <input id="zip" type="text" name="state" class="form-control">
                   </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
-                  <div class="form-group">
-                    <label for="state" class="form-label">State</label>
-                    <select id="state" class="form-control"></select>
-                  </div>
-                </div>
+               
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
                     <label for="country" class="form-label">Country</label>
-                    <select id="country" class="form-control"></select>
+                    <select id="country" name="country" class="form-control"></select>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -94,8 +108,8 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="text" class="form-control">
+                    <label for="" class="form-label">Age</label>
+                    <input id="" type="text" name="age" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">

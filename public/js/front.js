@@ -1,9 +1,9 @@
-$(function () {
+$(function() {
 
     utils();
 
 
-    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function (event) {
+    $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -13,14 +13,14 @@ $(function () {
         if (!$(this).next().hasClass('show')) {
             $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
         }
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
             $('.dropdown-submenu .show').removeClass("show");
         });
 
     });
 
 
-    $('i.delete').on('click', function () {
+    $('i.delete').on('click', function() {
         $(this).parents('.item').fadeOut();
     });
 
@@ -28,11 +28,11 @@ $(function () {
     // ------------------------------------------------------- //
     // Open & Close Search Panel
     // ------------------------------------------------------ //
-    $('.search').on('click', function () {
+    $('.search').on('click', function() {
         $('.search-area').fadeIn();
     });
 
-    $('.search-area .close-btn').on('click', function () {
+    $('.search-area .close-btn').on('click', function() {
         $('.search-area').fadeOut();
     });
 
@@ -44,7 +44,7 @@ $(function () {
     // from the video
     if (screenWidth > 800) {
         $('video.bg-video').attr('autoplay', true);
-        $('video.bg-video').each(function(){
+        $('video.bg-video').each(function() {
             this.play();
         });
     }
@@ -58,10 +58,10 @@ $(function () {
 
         $('#countdown').countdown('2020/10/10', function(event) {
             $(this).html(event.strftime(
-                '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%D</div>days</div>'
-                + '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%H</div>hours</div>'
-                + '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%M</div>minutes</div>'
-                + '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%S</div>seconds</div>'));
+                '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%D</div>days</div>' +
+                '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%H</div>hours</div>' +
+                '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%M</div>minutes</div>' +
+                '<div class="col-6 col-sm-3"><div class="display-3 text-shadow">%S</div>seconds</div>'));
         });
 
     }
@@ -83,14 +83,14 @@ $(function () {
     // ------------------------------------------------------- //
     // Increase/Reduce product amount
     // ------------------------------------------------------ //
-    $('.dec-btn').click(function () {
+    $('.dec-btn').click(function() {
         var siblings = $(this).siblings('input.quantity-no');
         if (parseInt(siblings.val(), 10) >= 1) {
             siblings.val(parseInt(siblings.val(), 10) - 1);
         }
     });
 
-    $('.inc-btn').click(function () {
+    $('.inc-btn').click(function() {
         var siblings = $(this).siblings('input.quantity-no');
         siblings.val(parseInt(siblings.val(), 10) + 1);
     });
@@ -99,7 +99,7 @@ $(function () {
     // Scroll to top button
     // ------------------------------------------------------ //
     // Scroll to top button
-    $(window).on('scroll', function () {
+    $(window).on('scroll', function() {
         if ($(window).scrollTop() >= 1500) {
             $('#scrollTop').fadeIn();
         } else {
@@ -108,7 +108,7 @@ $(function () {
     });
 
 
-    $('#scrollTop').on('click', function () {
+    $('#scrollTop').on('click', function() {
         $('html, body').animate({
             scrollTop: 0
         }, 1000);
@@ -153,13 +153,13 @@ $(function () {
                 nav: true
             }
         },
-        onRefresh: function () {
+        onRefresh: function() {
             owl.find('.item').height('');
         },
-        onRefreshed: function () {
+        onRefreshed: function() {
             var maxHeight = 0;
             var items = owl.find('.item');
-            items.each(function () {
+            items.each(function() {
                 var itemHeight = $(this).height();
                 if (itemHeight > maxHeight) {
                     maxHeight = itemHeight;
@@ -256,7 +256,7 @@ $(function () {
                 maxWidth: 400
             });
 
-            marker.addListener('click', function () {
+            marker.addListener('click', function() {
                 infowindow.open(map, marker);
             });
 
@@ -361,7 +361,7 @@ if ($.cookie("theme_csspath")) {
     alternateColour.attr("href", $.cookie("theme_csspath"));
 }
 
-$("#colour").change(function () {
+$("#colour").change(function() {
 
     if ($(this).val() !== '') {
 
@@ -383,20 +383,20 @@ function utils() {
 
     /* click on the box activates the link in it */
 
-    $('.box.clickable').on('click', function (e) {
+    $('.box.clickable').on('click', function(e) {
 
         window.location = $(this).find('a').attr('href');
     });
     /* external links in new window*/
 
-    $('.external').on('click', function (e) {
+    $('.external').on('click', function(e) {
 
         e.preventDefault();
         window.open($(this).attr("href"));
     });
     /* animated scrolling */
 
-    $('.scroll-to, .scroll-to-top').click(function (event) {
+    $('.scroll-to, .scroll-to-top').click(function(event) {
 
         var full_url = this.href;
         var parts = full_url.split("#");
@@ -421,3 +421,56 @@ function utils() {
         }, 1000);
     }
 }
+
+
+$('.quick-view').click(function() {
+    var id = $(this).data("id");
+    var data = {
+        id
+    };
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: "/ajax-desc",
+        data: data,
+        dataType: "json",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        success: function(res) {
+            // console.log(res);
+            const {
+                id,
+                category,
+                discounted_price,
+                full_price,
+                image,
+                short_desc,
+                title
+            } = res.data;
+            $('#modal-product-name').text(title);
+            $('#modal-product-discountedprice').text(discounted_price);
+            $('#modal-product-fullprice').text(full_price);
+            $('#modal-product-shortdesc').html(short_desc);
+            $('#modal-product-title').text(title);
+            $('#modal-img').attr('src', '/img/' + image);
+            $('#modal-add-to-cart').attr('data-id', id);
+            $('#modal-item-count').val(1);
+            $('.desc-add-to-wishlist').attr('id', id);
+            $('.desc-add-to-wishlist').addClass('desc-add-to-wishlist-' + id);
+
+
+
+            // $('.modal-body').text(discounted_price);
+
+            // show modal
+            $('#myModal').modal('show');
+
+        },
+        error: function(request, status, error) {
+            console.log("ajax call went wrong:" + request.responseText);
+        }
+    });
+});

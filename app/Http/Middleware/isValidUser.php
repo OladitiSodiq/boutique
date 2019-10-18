@@ -18,7 +18,7 @@ class isValidUser
   public function handle($request, Closure $next)
   {
     if (!Session::get('logged_in')) {
-      return redirect('/login');
+      return redirect('/customer-login');
     }
     return $next($request);
   }
