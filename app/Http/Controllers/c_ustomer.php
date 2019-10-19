@@ -76,7 +76,14 @@ class c_ustomer extends Controller
   }
   public function cus_accoutnt(Request $req)
   {
-    return view('customer-account');
+
+    if (!Session::get('logged_in')) {
+      return redirect('/login');
+    }
+
+    $user = custom::where('email', Session::get('email'))->first();
+    // dd($user);
+    return view('customer-account', compact('user'));
   }
   public function order_view(Request $reqs)
   {
@@ -131,17 +138,18 @@ class c_ustomer extends Controller
     // $user->email = $request->email;
     $user->firstname = $request->firstname;
     $user->lastname = $request->lastname;
-    $user->street = $request->street;
-    $user->street2 = $request->street2;
-    $user->zip = $request->zip;
-    $user->city = $request->city;
+    $user->surname = $request->surname;
+    $user->username = $request->username;
+    $user->email = $request->email;
+    $user->address = $request->address;
     $user->state = $request->state;
     $user->country = $request->country;
     $user->phone = $request->phone;
+    $user->age = $request->age;
 
     if ($user->save()) {
       Session::flash('flash', 'Profile updated successfully.');
-      return redirect()->route('user.account');
+      return redirect()->route('customer.account');
     }
   }
 }

@@ -31,14 +31,17 @@ Route::get('/customer-register', function () {
 Route::post('/customer-register', 'c_ustomer@register');
 
 Route::view('/register_success', 'register_success');
-
+Route::get('/customer-account', 'c_ustomer@cus_accoutnt')->middleware('isValidUser')->name('customer.account');
 
 Route::group(['middleware' => ['isAdmin', 'isValidUser']], function () {
   // account_update
-  Route::get('/customer-account', 'c_ustomer@cus_accoutnt');
+  Route::post('/account_update', 'c_ustomer@updateProfile');
+  //
+
   Route::get('/customer-order', 'c_ustomer@order_view');
   Route::get('/customer-orders', 'c_ustomer@orders_view');
   Route::post('/add-new-product', 'c_ustomer@add_food');
+  // Route::post('/account_update', 'c_ustomer@');
   Route::get('/change_password', 'c_ustomer@chnge_pword');
   // Route::get('/catalogue', 'ProductController@productCatalogue');
   // Route::get('/orders/all', 'OrdersController@show_all_orders');

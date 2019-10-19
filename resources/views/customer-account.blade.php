@@ -54,13 +54,13 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="firstname" class="form-label">Firstname</label>
-                    <input id="firstname" type="text" name="firstname" class="form-control">
+                    <input id="firstname" type="text" value="{{ $user->firstname }}" name="firstname" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="lastname" name="lastname"  class="form-label">Lastname</label>
-                    <input id="lastname" type="text" class="form-control">
+                    <input id="lastname" type="text" value="{{ $user->lastname }}" name ="lastname" class="form-control">
                   </div>
                 </div>
               </div>
@@ -69,13 +69,13 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="company" class="form-label">Surname</label>
-                    <input id="company" type="text" name="surname" class="form-control">
+                    <input id="company" type="text" name="surname" value="{{ $user->surname }}" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input id="street" type="text" name="email" class="form-control">
+                    <input id="street" type="text" value="{{ $user->email }}" name="email" class="form-control">
                   </div>
                 </div>
               </div>
@@ -84,34 +84,41 @@
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
                     <label for="address" class="form-label">Address</label>
-                    <input id="city" type="text" name="address" class="form-control">
+                    <input id="city" type="text" value="{{ $user->address }}" name="address" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
                     <label for="zip" class="form-label">State</label>
-                    <input id="zip" type="text" name="state" class="form-control">
+                    <input id="zip" type="text" name="state" value="{{ $user->state }}" class="form-control">
                   </div>
                 </div>
                
                 <div class="col-sm-6 col-md-3">
                   <div class="form-group">
                     <label for="country" class="form-label">Country</label>
-                    <select id="country" name="country" class="form-control"></select>
+                   
+                    <select class="browser-default custom-select" id="country" name="country" value="{{ $user->country }}">
+                      <option selected>Open this select menu</option>
+                      <option value="nigeria">Nigeria</option>
+                      <option value="ghana">Ghana</option>
+                      <option value="Kenya">Kenya</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="phone" class="form-label">Telephone</label>
-                    <input id="phone" type="text" class="form-control">
+                    <input id="phone" type="text" name="phone" value="{{ $user->phone }}" class="form-control">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="" class="form-label">Age</label>
-                    <input id="" type="text" name="age" class="form-control">
+                    <input id="" type="text" name="age" value="{{ $user->age }}" class="form-control">
                   </div>
                 </div>
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <div class="col-sm-12 text-center">
                   <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save changes</button>
                 </div>
