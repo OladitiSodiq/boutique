@@ -1,6 +1,9 @@
 @extends('master')
 @section('content');
 
+
+
+
     <section class="hero hero-home no-padding">
       <!-- Hero Slider-->
       <div class="owl-carousel owl-theme hero-slider">
@@ -78,22 +81,45 @@
         <!-- Products Slider-->
         <div class="owl-carousel owl-theme products-slider">
           <!-- item-->
+          <?php
+          if (!empty(Session::get('cart'))) {
+            $keys = [];
+            $array_keys = array_keys(Session::get('cart'));
+            foreach ($array_keys as $key) {
+              array_push($keys, $key);
+            }
+          }
           
+          if (!empty(Session::get('wishlist'))) {
+            $wkeys = [];
+            $array_keys = array_keys(Session::get('wishlist'));
+            foreach ($array_keys as $key) {
+              array_push($wkeys, $key);
+            }
+          }
+          
+          ?>  
 					@foreach($all as $product)
               <div class="item">
                 <div class="product is-gray">
                   <div class="image d-flex align-items-center justify-content-center"><img src="img/{{ $product->image }}" alt="product" class="img-fluid">
                     <div class="hover-overlay d-flex align-items-center justify-content-center">
                       <div class="CTA d-flex align-items-center justify-content-center">
-                          <a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button">
-                        <i class="fa fa-shopping-cart fa fa-circle-o-notch fa-spin btn-loading" style="font-size:24px; display: none"></i>
-                      </a>
-                      <img src="img/{{ $product->image }}" >
-                      <a href="detail.html" class="visit-product active">
-                        <i class="icon-search"></i>View
-                      </a>
-                      <button type="button" data-id='{{ $product->id }}' data-toggle="modal" data-target="#exampleModal" class="quick_view"><i class="fa fa-arrows-alt"></i>
-                      </button>
+                          @if(empty(Session::get('cart')) || !in_array($product->id, $keys) )
+                       
+                          	<button class="add-to-cart" id="btn-item-{{ $product->id }}" pk_id="{{ $product->id }}" onclick="addItemToCart({{ $product->id }})">
+                                 <i class="fa fa-shopping-cart"></i>
+                            </button >
+                         
+											    @endif
+
+
+                          <img src="img/{{ $product->image }}" >
+                          <a href="detail.html" class="visit-product active">
+                            <i class="icon-search"></i>View
+                          </a>
+                          <button type="button" data-id='{{ $product->id }}' data-toggle="modal" data-target="#exampleModal" class="quick_view"><i class="fa fa-arrows-alt"></i>
+                          </button>
                     </div>
                     </div>
                   </div>
@@ -269,33 +295,5 @@
     @section('title')
       landing Page
     @stop
-
-    @section('scripts')
-
-    <script type="text/javascript">
-        $(".add-to-cart").click(function (e) {
-            e.preventDefault();
-
-            var ele = $(this);
-
-            ele.siblings('.btn-loading').show();
-
-            $.ajax({
-                url: '{{ url('add-to-cart') }}' + '/' + ele.attr("data-id"),
-                method: "get",
-                data: {_token: '{{ csrf_token() }}'},
-                dataType: "json",
-                success: function (response) {
-
-                    ele.siblings('.btn-loading').hide();
-
-                    $("span#status").html('<div class="alert alert-success">'+response.msg+'</div>');
-                    $("#header-bar").html(response.data);
-                }
-            });
-        });
-    </script>
-
-@stop
     
 

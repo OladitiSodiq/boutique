@@ -204,21 +204,30 @@
 
 
           <div class="cart dropdown show"><a id="cartdetails" href="https://example.com/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
-            <div class="cart-no">1</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
+            <div class="cart-no">{{ count((array) session('cart')) }}</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
           <div aria-labelledby="cartdetails" class="dropdown-menu">
             <!-- cart item-->
             <div class="dropdown-item cart-product">
+
               <div class="d-flex align-items-center">
+                  @if(session('cart'))
+                @foreach((array) session('cart') as $id => $details)
                 <div class="img"><img src="img/hoodie-man-1.png" alt="..." class="img-fluid"></div>
                 <div class="details d-flex justify-content-between">
                   <div class="text"> <a href="#"><strong>Heather Gray Hoodie</strong></a><small>Quantity: 1 </small><span class="price">$75.00 </span></div><a href="#" class="delete"><i class="fa fa-trash-o"></i></a>
                 </div>
+                @endforeach
+                @endif
               </div>
             </div>
             <!-- total price-->
-            <div class="dropdown-item total-price d-flex justify-content-between"><span>Total</span><strong class="text-primary">$75.00</strong></div>
+            <?php $total = 0 ?>
+            @foreach((array) session('cart') as $id => $details)
+                <?php $total += $details['price'] * $details['quantity'] ?>
+            @endforeach
+            <div class="dropdown-item total-price d-flex justify-content-between"><span>Total</span><strong class="text-primary">${{ $total }}</strong></div>
             <!-- call to actions-->
-            <div class="dropdown-item CTA d-flex"><a href="cart.html" class="btn btn-template wide">View Cart</a><a href="checkout1.html" class="btn btn-template wide">Checkout</a></div>
+            <div class="dropdown-item CTA d-flex"><a href="{{ url('cart') }}" class="btn btn-template wide">View Cart</a><a href="checkout1.html" class="btn btn-template wide">Checkout</a></div>
           </div>
         </div>
         </div>

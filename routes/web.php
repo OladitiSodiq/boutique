@@ -14,6 +14,9 @@
 Route::get('/', 'c_ustomer@productLandingPage')->name('home');
 Route::post('/ajax-desc', 'c_ustomer@ajaxDesc')->name('ajax.desc');
 
+Route::get('/add-to-cart/{id}', 'c_ustomer@addToCart');
+Route::get('/cart', 'c_ustomer@showCart');
+
 Route::get('/customer-login', function () {
   if (Session::get('logged_in')) {
     return redirect('/');

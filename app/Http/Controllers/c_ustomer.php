@@ -116,40 +116,56 @@ class c_ustomer extends Controller
     return response()->json(['error' => false, 'msg' => 'desc successful', 'data' => $product]);
   }
 
-  public function updateProfile(Request $request)
+
+  public function addToCart($id)
   {
-    $this->validate($request, [
-      'user_id' => 'required',
-      // 'email' => 'required | email | unique:users',
-      'firstname' => 'required',
-      'lastname' => 'required',
-      'surname' => 'required',
-      'username' => 'nullable',
-      'email' => 'required',
-      'address' => 'required',
-      'state' => 'required',
-      'country' => 'required',
-      'phone' => 'required | numeric',
-      'age' => 'required',
-    ]);
 
-    // dd($request);
-    $user = custom::find($request->user_id);
-    // $user->email = $request->email;
-    $user->firstname = $request->firstname;
-    $user->lastname = $request->lastname;
-    $user->surname = $request->surname;
-    $user->username = $request->username;
-    $user->email = $request->email;
-    $user->address = $request->address;
-    $user->state = $request->state;
-    $user->country = $request->country;
-    $user->phone = $request->phone;
-    $user->age = $request->age;
+    $product = products::find($id);
+    if (!$product) {
 
-    if ($user->save()) {
-      Session::flash('flash', 'Profile updated successfully.');
-      return redirect()->route('customer.account');
+      abort(404);
     }
+
+    $cart = session()->get('cart');
+
+    // if cart is empty then this the first product
+    if (!$cart) {
+
+      $cart = [
+        $id => [
+          'id' => $product->id,
+          'slug' => $product->slug,
+          "name" => $product->title,
+          "quantity" => 1,
+          "price" => $product->discounted_price,
+          "photo" => $product->image
+        ]
+      ];
+
+      session()->put('cart', $cart);
+
+
+      return response()->json(['msg' => 'Product added to cart successfully!']);
+
+      //return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+  }
+  public function showCart()
+  {
+    return view('cart');
+    // return session('cart');
+  }
+
+  private function getCartTotal()
+  {
+    $total = 0;
+
+    $cart = session()->get('cart');
+
+    foreach ($cart as $id => $details) {
+      $total += $details['price'] * $details['quantity'];
+    }
+
+    return number_format($total, 2);
   }
 }
