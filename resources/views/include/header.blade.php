@@ -198,10 +198,10 @@
          
           <!-- Cart Dropdown-->
           <div class="cart dropdown show"><a id="cartdetails" href="/whishlist"><i class="icon-cart"></i>
-              <div class="cart-no">1</div></a><a href="cart.html" class="text-primary view-cart">Wishlist</a>
+              <div class="cart-no">{{ count((array) session('wishlist')) }}</div></a><a href="cart.html" class="text-primary view-cart">Wishlist</a>
            
           </div>
-
+          
 
           <div class="cart dropdown show"><a id="cartdetails" href="https://example.com/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
             <div class="cart-no">{{ count((array) session('cart')) }}</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>

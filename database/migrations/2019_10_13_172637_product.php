@@ -13,28 +13,28 @@ class Product extends Migration
    */
   public function up()
   {
-    // if (!Schema::hasTable('product')) {
-    Schema::create('product', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('title')->nullable();
-      $table->string('slug')->nullable();
-      $table->string('full_price')->nullable();
-      $table->string('discounted_price')->nullable();
-      $table->string('quantity')->nullable();
-      $table->string('short_desc')->nullable();
-      $table->string('full_desc')->nullable();
-      $table->string('material')->nullable();
-      $table->string('styles')->nullable();
-      $table->string('views')->nullable();
-      $table->string('properties')->nullable();
-      $table->string('brand')->nullable();
-      $table->string('status')->nullable();
-      $table->string('image')->nullable();
-      $table->string('created_by')->nullable();
-      $table->string('last_modified_by')->nullable();
-      $table->timestamps();
-    });
-    // }
+    if (!Schema::hasTable('product')) {
+      Schema::create('product', function (Blueprint $table) {
+        $table->increments('id');
+        $table->string('title')->nullable();
+        $table->string('slug')->nullable();
+        $table->string('full_price')->nullable();
+        $table->string('discounted_price')->nullable();
+        $table->string('quantity')->nullable();
+        $table->string('short_desc')->nullable();
+        $table->string('full_desc')->nullable();
+        $table->string('material')->nullable();
+        $table->string('styles')->nullable();
+        $table->string('views')->nullable();
+        $table->string('properties')->nullable();
+        $table->string('brand')->nullable();
+        $table->string('status')->nullable();
+        $table->string('image')->nullable();
+        $table->string('created_by')->nullable();
+        $table->string('last_modified_by')->nullable();
+        $table->timestamps();
+      });
+    }
   }
 
   /**

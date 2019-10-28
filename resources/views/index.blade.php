@@ -86,8 +86,11 @@
                     <div class="hover-overlay d-flex align-items-center justify-content-center">
                       <div class="CTA d-flex align-items-center justify-content-center">
                           <a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button">
-                        <i class="fa fa-shopping-cart fa fa-circle-o-notch fa-spin btn-loading" style="font-size:24px; display: none"></i>
+                        <i class="fa fa-shopping-cart"></i>
                       </a>
+                      <a href="{{ url('wishlist/'.$product->id) }}" data-id="{{ $product->id }}" class="wishlists" role="button">
+                        <i class="fa fa-heart"></i>
+                      </a> 
                       <img src="img/{{ $product->image }}" >
                       <a href="detail.html" class="visit-product active">
                         <i class="icon-search"></i>View
@@ -282,6 +285,28 @@
 
             $.ajax({
                 url: '{{ url('add-to-cart') }}' + '/' + ele.attr("data-id"),
+                method: "get",
+                data: {_token: '{{ csrf_token() }}'},
+                dataType: "json",
+                success: function (response) {
+
+                    ele.siblings('.btn-loading').hide();
+
+                    $("span#status").html('<div class="alert alert-success">'+response.msg+'</div>');
+                    $("#header-bar").html(response.data);
+                }
+            });
+        });
+
+        $(".wishlists").click(function (e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            ele.siblings('.btn-loading').show();
+
+            $.ajax({
+                url: '{{ url('wishlist') }}' + '/' + ele.attr("data-id"),
                 method: "get",
                 data: {_token: '{{ csrf_token() }}'},
                 dataType: "json",
