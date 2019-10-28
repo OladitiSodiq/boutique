@@ -145,11 +145,41 @@ class c_ustomer extends Controller
       session()->put('cart', $cart);
 
 
-      return response()->json(['msg' => 'Product added to cart successfully!']);
+      //return response()->json(['msg' => 'Product added to cart successfully!']);
 
-      //return redirect()->back()->with('success', 'Product added to cart successfully!');
+      return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
+    // if cart not empty then check if this product exist then increment quantity
+    if (isset($cart[$id])) {
+
+      $cart[$id]['quantity']++;
+
+      session()->put('cart', $cart);
+
+      //  $htmlCart = view('_header_cart')->render();
+
+      //return response()->json(['msg' => 'Product added to cart successfully!']);
+
+      return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+
+    // if item not exist in cart then add to cart with quantity = 1
+    $cart[$id] = [
+      "name" => $product->name,
+      "quantity" => 1,
+      "price" => $product->price,
+      "photo" => $product->photo
+    ];
+
+    session()->put('cart', $cart);
+
+    // $htmlCart = view('_header_cart')->render();
+
+    //return response()->json(['msg' => 'Product added to cart successfully!']);
+
+    return redirect()->back()->with('success', 'Product added to cart successfully!');
   }
+
   public function showCart()
   {
     return view('cart');
