@@ -166,10 +166,12 @@ class c_ustomer extends Controller
 
     // if item not exist in cart then add to cart with quantity = 1
     $cart[$id] = [
-      "name" => $product->name,
+      'id' => $product->id,
+      'slug' => $product->slug,
+      "name" => $product->title,
       "quantity" => 1,
-      "price" => $product->price,
-      "photo" => $product->photo
+      "price" => $product->discounted_price,
+      "photo" => $product->image
     ];
 
     session()->put('cart', $cart);
@@ -254,6 +256,27 @@ class c_ustomer extends Controller
   {
     return view('cart');
     // return session('cart');
+  }
+  public function updateCart($id, $quantity)
+  {
+    if ($id and $quantity) {
+      $cart = session()->get('cart');
+
+      $cart[$id]["quantity"] = $quantity;
+
+      session()->put('cart', $cart);
+
+      $subTotal = $cart[$id]['quantity'] * $cart[$id]['price'];
+
+      $total = $this->getCartTotal();
+      return redirect()->back()->with('success', 'Product updated to cart successfully!');
+
+      // $htmlCart = view('_header_cart')->render();
+
+      // return response()->json(['msg' => 'Cart updated successfully', 'data' => $htmlCart, 'total' => $total, 'subTotal' => $subTotal]);
+
+      //session()->flash('success', 'Cart updated successfully');
+    }
   }
 
   private function getCartTotal()

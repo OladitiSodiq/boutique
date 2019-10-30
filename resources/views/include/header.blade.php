@@ -207,19 +207,21 @@
             <div class="cart-no">{{ count((array) session('cart')) }}</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
           <div aria-labelledby="cartdetails" class="dropdown-menu">
             <!-- cart item-->
+            @if(session('cart'))
+            @foreach((array) session('cart') as $id => $details)
             <div class="dropdown-item cart-product">
 
               <div class="d-flex align-items-center">
-                  @if(session('cart'))
-                @foreach((array) session('cart') as $id => $details)
-                <div class="img"><img src="img/hoodie-man-1.png" alt="..." class="img-fluid"></div>
+                 
+                <div class="img"><img src="img/{{ $details['photo'] }}" alt="..." class="img-fluid"></div>
                 <div class="details d-flex justify-content-between">
-                  <div class="text"> <a href="#"><strong>Heather Gray Hoodie</strong></a><small>Quantity: 1 </small><span class="price">$75.00 </span></div><a href="#" class="delete"><i class="fa fa-trash-o"></i></a>
+                  <div class="text"> <a href="#"><strong>{{ $details['name'] }}</strong></a><small>Quantity: 1 </small><span class="price">{{$details['price']}}</span></div><a href="#" class="delete"><i class="fa fa-trash-o"></i></a>
                 </div>
-                @endforeach
-                @endif
+              
               </div>
             </div>
+            @endforeach
+            @endif
             <!-- total price-->
             <?php $total = 0 ?>
             @foreach((array) session('cart') as $id => $details)

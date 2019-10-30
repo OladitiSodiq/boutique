@@ -256,7 +256,7 @@
                   </select>
                 </div>
                 <ul class="CTAs list-inline">
-                  <li class="list-inline-item"><button id="modal-add-to-cart" data-id='' class="btn btn-template wide"> <i class="fa fa-shopping-cart"></i>Add to Cart</button></li>
+                  <li class="list-inline-item"><a href=" {{ url('add-to-cart/'.$product->id) }}" id="modal-add-to-cart" data-id="{{ $product->id }}" class="btn btn-template wide add-to-cart" role="button"> <i class="fa fa-shopping-cart"></i>Add to Cart</a></li>
                   <li class="list-inline-item"><button data-id='' onclick="addItemToWishlist(this.id, 'desc')" class="visit-product active btn btn-template-outlined wide"> <i class="icon-heart"></i>Add to wishlist</button></li>
                 </ul>
               </div>
