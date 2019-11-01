@@ -245,7 +245,7 @@
                 <div class="d-flex align-items-center">
                   <div class="quantity d-flex align-items-center">
                     <div class="dec-btn">-</div>
-                    <input type="text" value="1" class="quantity-no">
+                    <input type="text"   data-id="{{ $product->quantity }}"  value="1" class="quantity-no quantity">
                     <div class="inc-btn">+</div>
                   </div>
                   <select id="size" class="bs-select">
@@ -295,6 +295,33 @@
                     $("span#status").html('<div class="alert alert-success">'+response.msg+'</div>');
                     $("#header-bar").html(response.data);
                 }
+            });
+        });
+
+        $(".update-cart").click(function (e) {
+            e.preventDefault();
+
+            var ele = $(this);
+            var qty = parent_row.find(".quantity").val();
+            loading.show();
+
+            $.ajax({
+                url: '{{ url('update-cart') }}',
+                method: "patch",
+                data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id"), quantity: quantity},
+                dataType: "json",
+                success: function (response) {
+
+                    loading.hide();
+
+                    $("span#status").html('<div class="alert alert-success">'+response.msg+'</div>');
+
+                    $("#header-bar").html(response.data);
+
+                    product_subtotal.text(response.subTotal);
+
+                    cart_total.text(response.total);
+                }   
             });
         });
 

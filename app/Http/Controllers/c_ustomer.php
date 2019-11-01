@@ -257,25 +257,55 @@ class c_ustomer extends Controller
     return view('cart');
     // return session('cart');
   }
-  public function updateCart($id, $quantity)
+  public function updateCart(Request $request)
   {
-    if ($id and $quantity) {
+    // if($request->id and $request->quantity)
+    // {
+    //     $cart = session()->get('cart');
+
+    //     $cart[$request->id]["quantity"] = $request->quantity;
+
+    //     session()->put('cart', $cart);
+
+    //     $subTotal = $cart[$request->id]['quantity'] * $cart[$request->id]['price'];
+
+    //     $total = $this->getCartTotal();
+
+
+    //   return redirect()->back()->with('success', 'Product updated to cart successfully!');
+
+    //   // $htmlCart = view('_header_cart')->render();
+
+    //   // return response()->json(['msg' => 'Cart updated successfully', 'data' => $htmlCart, 'total' => $total, 'subTotal' => $subTotal]);
+
+    //   //session()->flash('success', 'Cart updated successfully');
+    // }
+
+
+    if ($request->id and $request->quantity) {
+      $id = $request->id;
+      $quantity = $request->quantity;
+
+      if ($quantity == 1) {
+        return;
+      }
+
+      $product = product::find($id);
+
+      if ($quantity > $product->quantity) {
+        return response()->json(['error' => true, 'msg' => 'Less item in stock', 'error_no' => 3, 'type' => 'lessItemsInStock']);
+      }
+
+      if (!$product) {
+        abort(404);
+      }
+
+
+
       $cart = session()->get('cart');
-
-      $cart[$id]["quantity"] = $quantity;
-
+      $cart[$request->id]["quantity"] = $request->quantity;
       session()->put('cart', $cart);
-
-      $subTotal = $cart[$id]['quantity'] * $cart[$id]['price'];
-
-      $total = $this->getCartTotal();
-      return redirect()->back()->with('success', 'Product updated to cart successfully!');
-
-      // $htmlCart = view('_header_cart')->render();
-
-      // return response()->json(['msg' => 'Cart updated successfully', 'data' => $htmlCart, 'total' => $total, 'subTotal' => $subTotal]);
-
-      //session()->flash('success', 'Cart updated successfully');
+      // return response()->json(['error'=>false , 'msg'=> 'Item updated', 'error_no'=> 2, 'type'=> 'itemUpdateInCart', 'count'=> count(session('cart')), 'json' => json_encode(session('cart')) ]);
     }
   }
 
