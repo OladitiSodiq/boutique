@@ -245,7 +245,7 @@
                 <div class="d-flex align-items-center">
                   <div class="quantity d-flex align-items-center">
                     <div class="dec-btn">-</div>
-                    <input type="text"   data-id="{{ $product->quantity }}"  value="1" class="quantity-no quantity">
+                    <input type="text"   data-id="{{ $product->quantity }}"  value="" class="quantity-no quantity">
                     <div class="inc-btn">+</div>
                   </div>
                   <select id="size" class="bs-select">

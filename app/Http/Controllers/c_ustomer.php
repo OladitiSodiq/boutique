@@ -94,6 +94,12 @@ class c_ustomer extends Controller
   {
     return view('customer-orders')->with('active', $class);
   }
+  
+  public function wishlist(Request $reqss)
+  {
+    return view('wishlist');
+  }
+
   public function chnge_pword(Request $reqss)
   {
     return view('change_password');
@@ -108,6 +114,8 @@ class c_ustomer extends Controller
 
     $females = 'female';
     $female = products::where('category', $females)->get();
+    $counts = whishlist::where('user_id', Session::get('user_id'))->count();
+    session()->put('counts', $counts);
 
     return view('index', compact('all', 'men', 'female'));
   }
@@ -209,7 +217,7 @@ class c_ustomer extends Controller
       session()->put('wishlist', $wishlist);
 
       if (Session::get('email')) {
-        $wishlist = new wishlist();
+        $wishlist = new whishlist();
         $wishlist->product_id = $id;
         $wishlist->user_id = Session::get('username');
         $wishlist->save();
@@ -244,7 +252,7 @@ class c_ustomer extends Controller
     session()->put('wishlist_ids', $id);
     session()->put('wishlist', $wishlist);
     if (Session::get('email')) {
-      $wishlist = new Wishlist();
+      $wishlist = new whishlist();
       $wishlist->product_id = $id;
       $wishlist->user_id = Session::get('user_id');
       $wishlist->save();

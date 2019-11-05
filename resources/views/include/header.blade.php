@@ -178,27 +178,29 @@
           <!-- Search Button-->
           <div class="search"><i class="icon-search"></i></div>
           <!-- User Not Logged - link to login page-->
-          @if(Session::get('username'))
+         
           <div class="user"> 
-            <a id="userdetails" href="/customer-account" class="user-link">
-              {{ Session::get('username') }}
-            <i class="icon-profile">                   
-            </i>
-          </a>
+              @if(Session::get('username'))
+                  <a id="userdetails" href="/customer-account" class="user-link">
+                    {{ Session::get('username') }}
+                    <i class="icon-profile"></i>
+                  </a>
+              @endif 
+              @if(!Session::get('username'))
+                  <a id="userdetails" href="/customer-login" class="user-link">
+                    Login
+                    <i class="icon-profile"></i>
+                  </a>
+              @endif
+             
           </div>
-          @elseif(!Session::get('username'))
-          <div class="user"> 
-            <a id="userdetails" href="/customer-login" class="user-link">
-               Login
-            <i class="icon-profile">                   
-            </i>
-          </a>
-          </div>
-          @endif
+          
+         
+          
          
           <!-- Cart Dropdown-->
-          <div class="cart dropdown show"><a id="cartdetails" href="/whishlist"><i class="icon-cart"></i>
-              <div class="cart-no">{{ count((array) session('wishlist')) }}</div></a><a href="cart.html" class="text-primary view-cart">Wishlist</a>
+          <div class="wishlist dropdown show"><a id="cartdetails" href="/whishlist"><i class="fa fa-heart"></i>
+              <div class="cart-no">{{ (Session::get('counts')) }} </div></a><a  class="text-primary view-cart">Wishlist</a>
            
           </div>
           
@@ -215,7 +217,7 @@
                  
                 <div class="img"><img src="img/{{ $details['photo'] }}" alt="..." class="img-fluid"></div>
                 <div class="details d-flex justify-content-between">
-                  <div class="text"> <a href="#"><strong>{{ $details['name'] }}</strong></a><small>Quantity: 1 </small><span class="price">{{$details['price']}}</span></div><a href="#" class="delete"><i class="fa fa-trash-o"></i></a>
+                  <div class="text"> <a href="#"><strong>{{ $details['name'] }}</strong></a><small>Quantity: {{ $details['quantity'] }} </small><span class="price">{{$details['price']}}</span></div><a href="#" class="delete"><i class="fa fa-trash-o"></i></a>
                 </div>
               
               </div>
