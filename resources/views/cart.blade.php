@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row d-flex">
           <div class="col-lg-9 order-2 order-lg-1">
-            <h1>Shopping cart</h1><p class="lead text-muted">You currently have 3 items in your shopping cart</p>
+            <h1>Shopping cart</h1><p class="lead text-muted">You currently have {{ count((array) session('cart')) }} items in your shopping cart</p>
           </div>
           <div class="col-lg-3 text-right order-1 order-lg-2">
             <ul class="breadcrumb justify-content-lg-end">
@@ -42,35 +42,32 @@
 
 						@if(!empty($products))
 						<div class="row">
-						  @foreach($products as $product)
-              
-              
-              
+							@foreach($products as $product)
 
-                    <div class="item">
-                    
-                      <div class="row d-flex align-items-center">
-                        <div class="col-5">
-                          <div class="d-flex align-items-center"><img src="img/{{ $product->image }}" alt="..." class="img-fluid">
-                            <div class="title"><a href="/detail">
-                                <h5>{{ $product->title }}</h5>
-                                <span class="text-muted">Size: {{ $product->properties }}</span></a></div>
-                          </div>
-                        </div>
-                        <div class="col-2"><span>{{ $product->discounted_price }}</span></div>
-                        <div class="col-2">
-                          <div class="d-flex align-items-center">
-                            <div class="quantity d-flex align-items-center">
-                              <div class="dec-btn">-</div>
-                              <input type="text" value="4" class="quantity-no">
-                              <div class="inc-btn">+</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-2"><span>$325.00</span></div>
-                        <div class="col-1 text-center"><i class="delete fa fa-trash"></i></div>
+              <div class="item">
+               
+                <div class="row d-flex align-items-center">
+                  <div class="col-5">
+                    <div class="d-flex align-items-center"><img src="../../../d19m59y37dris4.cloudfront.net/hub/1-4-2/img/shirt.png" alt="..." class="img-fluid">
+                      <div class="title"><a href="/detail">
+                          <h5>{{ $product['title'] }}</h5>
+                          <span class="text-muted">Size: Large</span></a></div>
+                    </div>
+                  </div>
+                  <div class="col-2"><span>${{ $product['price'] }}</span></div>
+                  <div class="col-2">
+                    <div class="d-flex align-items-center">
+                      <div class="quantity d-flex align-items-center">
+                        <div class="dec-btn">-</div>
+                        <input type="text" value="4" class="quantity-no">
+                        <div class="inc-btn">+</div>
                       </div>
                     </div>
+                  </div>
+                  <div class="col-2"><span>$325.00</span></div>
+                  <div class="col-1 text-center"><i class="delete fa fa-trash"></i></div>
+                </div>
+              </div>
              
               @endforeach
             </div>

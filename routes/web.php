@@ -19,7 +19,7 @@ Route::get('/cart', 'c_ustomer@showCart');
 Route::patch('/update-cart/{id}', 'c_ustomer@updateCart');
 Route::get('/wishlist/{id}', 'c_ustomer@addTowishlist');
 
-
+Route::get('/cart', 'c_ustomer@showCart');
 Route::get('/whishlist', 'c_ustomer@wishlist');
 
 Route::get('/customer-login', function () {

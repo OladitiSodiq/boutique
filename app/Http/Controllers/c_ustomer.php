@@ -94,10 +94,25 @@ class c_ustomer extends Controller
   {
     return view('customer-orders')->with('active', $class);
   }
-  
+
   public function wishlist(Request $reqss)
   {
-    return view('wishlist');
+
+    if (Session::get('logged_in')) {
+
+
+      // session()->put('counts', $counts);
+
+      $user_id = Session::get('user_id');
+      $products = DB::table('whishlists')
+        ->join('customer_details', 'customer_details.id', '=', 'whishlists.user_id')
+        ->join('product', 'product.id', '=', 'whishlists.product_id')
+        ->select('product.*')
+        ->get();
+    } else {
+      $products = session()->get('wishlist');
+    }
+    return view('wishlist', compact('products'));
   }
 
   public function chnge_pword(Request $reqss)

@@ -205,8 +205,8 @@
           </div>
           
 
-          <div class="cart dropdown show"><a id="cartdetails" href="https://example.com/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
-            <div class="cart-no">{{ count((array) session('cart')) }}</div></a><a href="cart.html" class="text-primary view-cart">View Cart</a>
+          <div class="cart dropdown show"><a id="cartdetails" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="icon-cart"></i>
+            <div class="cart-no">{{ count((array) session('cart')) }}</div></a><a href="/cart" class="text-primary view-cart">View Cart</a>
           <div aria-labelledby="cartdetails" class="dropdown-menu">
             <!-- cart item-->
             @if(session('cart'))
