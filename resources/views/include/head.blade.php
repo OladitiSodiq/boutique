@@ -3,6 +3,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Hub - Bootstrap 4 Ecommerce Template</title>
   <meta name="description" content="">
+<meta name="_token" content="{{ csrf_token() }}">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
   <!-- Bootstrap CSS-->

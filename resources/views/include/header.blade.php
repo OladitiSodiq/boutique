@@ -200,8 +200,8 @@
          
           <!-- Cart Dropdown-->
           <div class="wishlist dropdown show"><a id="cartdetails" href="/whishlist"><i class="fa fa-heart"></i>
-              <div class="cart-no">{{ (Session::get('counts')) }} </div></a><a  class="text-primary view-cart">Wishlist</a>
-           
+              <div class="cart-no"> </div></a>
+              <a class="text-primary view-cart">Wishlist</a>
           </div>
           
 

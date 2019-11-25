@@ -83,17 +83,6 @@ $(function() {
     // ------------------------------------------------------- //
     // Increase/Reduce product amount
     // ------------------------------------------------------ //
-    $('.dec-btn').click(function() {
-        var siblings = $(this).siblings('input.quantity-no');
-        if (parseInt(siblings.val(), 10) >= 1) {
-            siblings.val(parseInt(siblings.val(), 10) - 1);
-        }
-    });
-
-    $('.inc-btn').click(function() {
-        var siblings = $(this).siblings('input.quantity-no');
-        siblings.val(parseInt(siblings.val(), 10) + 1);
-    });
 
     // ------------------------------------------------------- //
     // Scroll to top button
@@ -422,55 +411,53 @@ function utils() {
     }
 }
 
+function decreaseValue(id) {
+    // var siblings = $(this).siblings('input.quantity-no');
+    // if (parseInt(siblings.val(), 10) >= 1) {
+    //     siblings.val(parseInt(siblings.val(), 10) - 1);
+    //     var newPrice=siblings * 
 
-$('.quick-view').click(function() {
-    var id = $(this).data("id");
-    var data = {
-        id
-    };
+    var value = parseInt(document.getElementById(`quantity-no-${id}`).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+
+    document.getElementById(`quantity-no-${id}`).value = value;
+    var price = parseInt(document.getElementById(`price${id}`).innerHTML, 10);
+    document.getElementById(`total${id}`).innerHTML = price * value;
+}
+
+function increaseValue(id) {
+    // var siblings = $(this).siblings('input.quantity-no');
+    // siblings.val(parseInt(siblings.val(), 10) + 1);
+
+    var quantity = parseInt(document.getElementById(`quantity-no-${id}`).value, 10);
+    var price = parseInt(document.getElementById(`price${id}`).innerHTML, 10);
+
+
+    quantity = isNaN(quantity) ? 0 : quantity;
+    quantity++;
+
+    document.getElementById(`quantity-no-${id}`).value = quantity;
+    document.getElementById(`total${id}`).innerHTML = price * quantity;
+    updateCart(id, quantity);
+
+}
+
+const updateCart = (id, quantity) => {
+    const dataToSend = {
+        id,
+        quantity
+    }
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    $.ajax({
-        type: "POST",
-        url: "/ajax-desc",
-        data: data,
-        dataType: "json",
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        success: function(res) {
-            // console.log(res);
-            const {
-                id,
-                category,
-                discounted_price,
-                full_price,
-                image,
-                short_desc,
-                title
-            } = res.data;
-            $('#modal-product-name').text(title);
-            $('#modal-product-discountedprice').text(discounted_price);
-            $('#modal-product-fullprice').text(full_price);
-            $('#modal-product-shortdesc').html(short_desc);
-            $('#modal-product-title').text(title);
-            $('#modal-img').attr('src', '/img/' + image);
-            $('#modal-add-to-cart').attr('data-id', id);
-            $('#modal-item-count').val(1);
-            $('.desc-add-to-wishlist').attr('id', id);
-            $('.desc-add-to-wishlist').addClass('desc-add-to-wishlist-' + id);
+    $.post("/updateCart",
+        dataToSend,
+        function(data, status) {
+            alert("Data: " + data + "\nStatus: " + status);
+        });
 
-
-
-            // $('.modal-body').text(discounted_price);
-
-            // show modal
-            $('#myModal').modal('show');
-
-        },
-        error: function(request, status, error) {
-            console.log("ajax call went wrong:" + request.responseText);
-        }
-    });
-});
+}

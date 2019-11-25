@@ -244,9 +244,9 @@
                 <p id ="modal-product-shortdesc"></p>
                 <div class="d-flex align-items-center">
                   <div class="quantity d-flex align-items-center">
-                    <div class="dec-btn">-</div>
-                    <input type="text"   data-id="{{ $product->quantity }}"  value="" class="quantity-no quantity">
-                    <div class="inc-btn">+</div>
+                    <div class="dec-btn" id="decrease" >-</div>
+                    <input type="text"   data-id="{{ $product->quantity }}"  value="{{ $product->quantity }}" class="quantity-no quantity">
+                    <div class="inc-btn" id="increase" >+</div>
                   </div>
                   <select id="size" class="bs-select">
                     <option value="small">Small</option>
@@ -256,8 +256,11 @@
                   </select>
                 </div>
                 <ul class="CTAs list-inline">
-                  <li class="list-inline-item"><a href=" {{ url('add-to-cart/'.$product->id) }}" id="modal-add-to-cart" data-id="{{ $product->id }}" class="btn btn-template wide add-to-cart" role="button"> <i class="fa fa-shopping-cart"></i>Add to Cart</a></li>
+                  <li class="list-inline-item"> <a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button" > <i class="fa fa-shopping-cart"></i>Add to Cart</a></li>
                   <li class="list-inline-item"><button data-id='' onclick="addItemToWishlist(this.id, 'desc')" class="visit-product active btn btn-template-outlined wide"> <i class="icon-heart"></i>Add to wishlist</button></li>
+
+                 
+
                 </ul>
               </div>
             </div>

@@ -101,7 +101,7 @@ class c_ustomer extends Controller
     if (Session::get('logged_in')) {
 
 
-      // session()->put('counts', $counts);
+      // session()->put('counts', $counts); 
 
       $user_id = Session::get('user_id');
       $products = DB::table('whishlists')
@@ -109,6 +109,7 @@ class c_ustomer extends Controller
         ->join('product', 'product.id', '=', 'whishlists.product_id')
         ->select('product.*')
         ->get();
+      $productss = $products->count();
     } else {
       $products = session()->get('wishlist');
     }
@@ -129,10 +130,19 @@ class c_ustomer extends Controller
 
     $females = 'female';
     $female = products::where('category', $females)->get();
-    $counts = whishlist::where('user_id', Session::get('user_id'))->count();
-    session()->put('counts', $counts);
+    // $counts = whishlist::where('user_id', Session::get('user_id'))->count();
+    // session()->put('counts', $counts);
 
-    return view('index', compact('all', 'men', 'female'));
+
+
+    $products = DB::table('whishlists')
+      ->join('customer_details', 'customer_details.id', '=', 'whishlists.user_id')
+      ->join('product', 'product.id', '=', 'whishlists.product_id')
+      ->select('product.*')
+      ->get();
+    $productss = $products->count();
+
+    return view('index', compact('all', 'men', 'female', 'productss'));
   }
   public function ajaxDesc(Request $req)
   {
@@ -162,7 +172,9 @@ class c_ustomer extends Controller
           "name" => $product->title,
           "quantity" => 1,
           "price" => $product->discounted_price,
-          "photo" => $product->image
+          "photo" => $product->image,
+          "properties" => $product->properties
+
         ]
       ];
 
@@ -194,7 +206,8 @@ class c_ustomer extends Controller
       "name" => $product->title,
       "quantity" => 1,
       "price" => $product->discounted_price,
-      "photo" => $product->image
+      "photo" => $product->image,
+      "properties" => $product->properties
     ];
 
     session()->put('cart', $cart);
@@ -282,6 +295,7 @@ class c_ustomer extends Controller
   }
   public function updateCart(Request $request)
   {
+
     // if($request->id and $request->quantity)
     // {
     //     $cart = session()->get('cart');
@@ -313,7 +327,7 @@ class c_ustomer extends Controller
         return;
       }
 
-      $product = product::find($id);
+      $product = products::find($id);
 
       if ($quantity > $product->quantity) {
         return response()->json(['error' => true, 'msg' => 'Less item in stock', 'error_no' => 3, 'type' => 'lessItemsInStock']);
@@ -328,20 +342,14 @@ class c_ustomer extends Controller
       $cart = session()->get('cart');
       $cart[$request->id]["quantity"] = $request->quantity;
       session()->put('cart', $cart);
-      // return response()->json(['error'=>false , 'msg'=> 'Item updated', 'error_no'=> 2, 'type'=> 'itemUpdateInCart', 'count'=> count(session('cart')), 'json' => json_encode(session('cart')) ]);
+      return response()->json(['error' => false, 'msg' => 'Item updated', 'error_no' => 2, 'type' => 'itemUpdateInCart', 'count' => count(session('cart')), 'json' => json_encode(session('cart'))]);
     }
   }
 
-  private function getCartTotal()
+  public function productDesc($id)
   {
-    $total = 0;
+    $products = products::findOrFail($id);
 
-    $cart = session()->get('cart');
-
-    foreach ($cart as $id => $details) {
-      $total += $details['price'] * $details['quantity'];
-    }
-
-    return number_format($total, 2);
+    return view('details', compact('products'));
   }
 }
