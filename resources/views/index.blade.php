@@ -1,5 +1,5 @@
 @extends('master')
-@section('content');
+@section('content')
 
     <section class="hero hero-home no-padding">
       <!-- Hero Slider-->

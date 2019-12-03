@@ -1,4 +1,3 @@
-<script src="js/pnotify.custom.min.js"></script>
 <footer class="main-footer">
 
   <!-- Service Block-->

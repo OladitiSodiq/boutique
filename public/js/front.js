@@ -1,5 +1,5 @@
 function notify(type, title, text) {
-    new PNotify({
+    new PNotify.alert({
         title: title,
         text: text,
         type: type
@@ -421,7 +421,7 @@ function utils() {
 }
 
 
-notify('info', 'Successful', ' has been added to your wishlist')
+notify('info', 'Successful', 'Notification is now working')
 
 function decreaseValue(id) {
     // var siblings = $(this).siblings('input.quantity-no');

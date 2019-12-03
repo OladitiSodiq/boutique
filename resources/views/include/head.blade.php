@@ -28,9 +28,6 @@
   <link rel="stylesheet" href="css/custom.css">
   <!-- Favicon-->
   <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/hub/1-4-2/img/favicon.ico">
-
-  {{-- <script type="text/javascript" src="/js/pnotify/pnotify.core.min.js"></script>
-  <script type="text/javascript" src="/vendor/Notify/pnotify/pnotify.buttons.min.js"></script> --}}
   
   
   <!-- Modernizr-->
@@ -69,6 +66,4 @@
 </script>
 <!-- Main Template File-->
 
-<script src="js/front.js"></script>
-<script src="js/main.js"></script>
 
