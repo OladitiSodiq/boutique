@@ -67,7 +67,7 @@
                         </div>
                         <?php $subtotal = $product['price'] * $product['quantity'] ?>
                         <div class="col-2"><span id="total{{ $product['id'] }}"> {{ $subtotal }} </span></div>
-                        <div class="col-1 text-center"><i class="delete fa fa-trash"></i>
+                        <div class="col-1 text-center" onclick="deleteFromCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})" ><i class="delete fa fa-trash"  ></i>
                         </div>
                     </div>  
                      <div>   </div>
@@ -91,6 +91,53 @@
         </div>
       </div>
     </section>
+    <script type="text/javascript">
+    function deleteFromCart(id, qty, price) {
+      // e.preventDefault();
+      // alert('a');
+
+      // var ele = $(this);
+      // var id = ele.attr("data-id");
+      // var id = ele.attr("data-id");
+
+      if(confirm("Are you sure you want to delete this coin from your cart?")) {
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+              }
+          });
+          $.ajax({
+              url: '{{ url('/deleteCart') }}',
+              method: "post",
+              data: { id: id},
+              success: function (data) {
+                  switch(data.error_no){
+              
+                      case 4:
+                          sessionStorage.setItem("cart", data.json);
+                          $('#tr' + id).html('');
+                          $('#cart-qty').html(data.count);
+                          if(data.count == 0){
+                              $('#holding-cart-items').html('<h2> Your cart is empty. </h2>');
+                              $('.cart-dropdown').html('<h5 id="cart-empty-text"> Your cart is empty. </h5>');
+                          }else{
+                              
+                              $('#product-widget-'+ id).remove();
+                              var total =  parseInt($('#cart-total').text());
+                              total = total - (price * qty);
+                              $('#cart-total').text(total);
+                          }
+                          notify('info', 'Successful', 'Item has been deleted from your cart');
+                          update_full_price();
+                      return;
+                  }
+              }
+          });
+      }
+  };
+
+</script>
+
     @stop
     @section('title')
     

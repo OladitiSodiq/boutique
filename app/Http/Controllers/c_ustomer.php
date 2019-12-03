@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator, Redirect, Response;
 use App\custom;
 use App\products;
+use Notify;
 use App\whishlist;
 use Session;
 use DB;
@@ -343,6 +344,22 @@ class c_ustomer extends Controller
       $cart[$request->id]["quantity"] = $request->quantity;
       session()->put('cart', $cart);
       return response()->json(['error' => false, 'msg' => 'Item updated', 'error_no' => 2, 'type' => 'itemUpdateInCart', 'count' => count(session('cart')), 'json' => json_encode(session('cart'))]);
+    }
+  }
+
+  public function deleteCart(Request $request)
+  {
+    if ($request->id) {
+      $cart = session()->get('cart');
+      if (isset($cart[$request->id])) {
+        unset($cart[$request->id]);
+        session()->put('cart', $cart);
+      }
+      // $message = "thanks";
+      // Notify::success($message, $title = null, $options = []);
+      // Notify::success('require body', 'optional title');
+      // session()->put('warning','This is for warning.');
+      return response()->json(['error' => false, 'msg' => 'Item Deleted', 'error_no' => 4, 'type' => 'deleteItemInCart', 'count' => count(session('cart')), 'json' => json_encode(session('cart'))]);
     }
   }
 

@@ -1,3 +1,12 @@
+function notify(type, title, text) {
+    new PNotify({
+        title: title,
+        text: text,
+        type: type
+    });
+}
+
+
 $(function() {
 
     utils();
@@ -411,6 +420,9 @@ function utils() {
     }
 }
 
+
+notify('info', 'Successful', ' has been added to your wishlist')
+
 function decreaseValue(id) {
     // var siblings = $(this).siblings('input.quantity-no');
     // if (parseInt(siblings.val(), 10) >= 1) {
@@ -458,6 +470,30 @@ const updateCart = (id, quantity) => {
         dataToSend,
         function(data, status) {
             alert("Data: " + data + "\nStatus: " + status);
+        });
+
+}
+
+const deleteCart = (id, quantity, price) => {
+    const dataTodelete = {
+        id,
+        quantity,
+        price
+    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.post("/deleteCart",
+        dataTodelete,
+        function(data, status) {
+            // json("Data: " + data + "\nStatus: " + status);
+
+            notify('info', 'Successful', ' has been added to your wishlist')
+                // console.log(data);
+
+
         });
 
 }

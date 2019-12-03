@@ -270,10 +270,9 @@ function deleteItemInCart(id, qty, price) {
         });
         jQuery.ajax({
             type: "POST",
-            url: "/remove-from-cart",
+
+            url: "/deleteCart",
             data: data,
-            dataType: "json",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 
             success: function(data) {
                 // console.log(data);
@@ -281,6 +280,7 @@ function deleteItemInCart(id, qty, price) {
                 switch (data.error_no) {
 
                     case 4:
+                        notify('info', 'Successful', data.item.name + ' has been added to your cart.');
                         sessionStorage.setItem("cart", data.json);
                         $('#cart-qty').html(data.count);
                         if (data.count == 0) {

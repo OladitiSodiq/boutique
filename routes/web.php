@@ -15,8 +15,12 @@ Route::get('/', 'c_ustomer@productLandingPage')->name('home');
 Route::post('/ajax-desc', 'c_ustomer@ajaxDesc')->name('ajax.desc');
 Route::get('/product-{id}', 'c_ustomer@productDesc');
 Route::get('/add-to-cart/{id}', 'c_ustomer@addToCart');
+
 Route::get('/cart', 'c_ustomer@showCart');
-// Route::patch('/update-cart/{id}', 'c_ustomer@updateCart');
+Route::patch('/update-cart/{id}', 'c_ustomer@updateCart');
+
+Route::post('/deleteCart', 'c_ustomer@deleteCart');
+
 
 Route::post('/updateCart', 'c_ustomer@updateCart');
 Route::get('/wishlist/{id}', 'c_ustomer@addTowishlist');

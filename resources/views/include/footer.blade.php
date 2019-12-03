@@ -1,4 +1,6 @@
+<script src="js/pnotify.custom.min.js"></script>
 <footer class="main-footer">
+
   <!-- Service Block-->
   <div class="services-block">
     <div class="container">
@@ -94,5 +96,6 @@
         </div>
       </div>
     </div>
+    {{-- <div class='notifications top-right'></div> --}}
   </div>
 </footer>
