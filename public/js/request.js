@@ -8,6 +8,11 @@ function sendData(path, data, notification = {}) {
 	$.post(path,
 	    data,
 	    function(data, status) {
-	        notify(type, title, text)
+	    	const { error } = data
+	    	if (!error) {
+	    		notify(type, title, text)
+	    	} else {
+	    		notify('alert', 'Error', 'Error Occured. Try again')
+	    	}
 	    });
 }
