@@ -15,6 +15,7 @@
 <link href="https://unpkg.com/pnotify@4.0.0/dist/PNotifyBrightTheme.css" rel="stylesheet">
 <script src="js/front.js"></script>
 <script src="js/main.js"></script>
+<script src="js/cart.js"></script>
 
 
 </body>
