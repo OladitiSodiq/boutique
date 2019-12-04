@@ -45,32 +45,26 @@ const updateCart = (id, quantity) => {
         id,
         quantity
     }
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-    $.post("/updateCart",
-        dataToSend,
-        function(data, status) {
-            // alert("Data: " + data + "\nStatus: " + status);
-            notify('info', 'Successful', ' Cart has been Updated')
-        });
 
+    const notification = {
+        type: 'info',
+        title: 'Successful',
+        text: 'Cart has been updated'
+    }
+
+    const path = '/updateCart'
+    sendData(path, dataToSend, notification)
 }
 
 const deleteCart = (id, quantity, price) => {
-    const dataTodelete = { id }
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-    $.post("/deleteCart",
-        dataTodelete,
-        function(data, status) {
-            // json("Data: " + data + "\nStatus: " + status);
-            notify('info', 'Successful', ' Data Deleted from Cart')
-            // console.log(data);
-        });
+    const dataToSend = { id }
+
+    const notification = {
+        type: 'info',
+        title: 'Successful',
+        text: 'Item has been removed from cart'
+    }
+
+    const path = '/deleteCart'
+    sendData(path, dataToSend, notification)
 }
