@@ -106,7 +106,7 @@
                   <th>Brand:</th>
                   <td>{{ $products->brand }}</td>
                 </tr>
-              </tbody>
+              </tbody>  
             </table>
           </div>
           <div id="reviews" role="tabpanel" class="tab-pane">
