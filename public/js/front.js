@@ -421,7 +421,7 @@ function utils() {
 }
 
 
-notify('info', 'Successful', 'Notification is now working')
+
 
 function decreaseValue(id) {
     // var siblings = $(this).siblings('input.quantity-no');
@@ -469,7 +469,8 @@ const updateCart = (id, quantity) => {
     $.post("/updateCart",
         dataToSend,
         function(data, status) {
-            alert("Data: " + data + "\nStatus: " + status);
+            // alert("Data: " + data + "\nStatus: " + status);
+            notify('info', 'Successful', ' Cart has been Updated')
         });
 
 }
@@ -490,7 +491,7 @@ const deleteCart = (id, quantity, price) => {
         function(data, status) {
             // json("Data: " + data + "\nStatus: " + status);
 
-            notify('info', 'Successful', ' has been added to your wishlist')
+            notify('info', 'Successful', ' Data Deleted from Cart')
                 // console.log(data);
 
 
