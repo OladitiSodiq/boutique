@@ -67,7 +67,7 @@
                         </div>
                         <?php $subtotal = $product['price'] * $product['quantity'] ?>
                         <div class="col-2"><span id="total{{ $product['id'] }}"> {{ $subtotal }} </span></div>
-                        <div class="col-1 text-center" onclick="deleteFromCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})" ><i class="delete fa fa-trash"  ></i>
+                        <div class="col-1 text-center" onclick="deleteCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})" ><i class="delete fa fa-trash"  ></i>
                         </div>
                     </div>  
                      <div>   </div>

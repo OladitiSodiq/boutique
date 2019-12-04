@@ -1,12 +1,3 @@
-function notify(type, title, text) {
-    new PNotify.alert({
-        title: title,
-        text: text,
-        type: type
-    });
-}
-
-
 $(function() {
 
     utils();
@@ -422,6 +413,7 @@ function utils() {
 
 
 
+// notify('info', 'Successful', ' Cart has been Updated')
 
 function decreaseValue(id) {
     // var siblings = $(this).siblings('input.quantity-no');
@@ -470,12 +462,20 @@ const updateCart = (id, quantity) => {
         dataToSend,
         function(data, status) {
             // alert("Data: " + data + "\nStatus: " + status);
+            function notify(type, title, text) {
+                new PNotify.alert({
+                    title: title,
+                    text: text,
+                    type: type
+                });
+            }
             notify('info', 'Successful', ' Cart has been Updated')
         });
 
 }
 
 const deleteCart = (id, quantity, price) => {
+    notify()
     const dataTodelete = {
         id,
         quantity,
@@ -490,7 +490,13 @@ const deleteCart = (id, quantity, price) => {
         dataTodelete,
         function(data, status) {
             // json("Data: " + data + "\nStatus: " + status);
-
+            function notify(type, title, text) {
+                new PNotify.alert({
+                    title: title,
+                    text: text,
+                    type: type
+                });
+            }
             notify('info', 'Successful', ' Data Deleted from Cart')
                 // console.log(data);
 
