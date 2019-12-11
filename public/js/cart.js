@@ -57,7 +57,9 @@ const updateCart = (id, quantity) => {
 }
 
 const deleteCart = (id, quantity, price) => {
-    const dataToSend = { id }
+    const dataToSend = {
+        id
+    }
 
     const notification = {
         type: 'info',
@@ -68,3 +70,18 @@ const deleteCart = (id, quantity, price) => {
     const path = '/deleteCart'
     sendData(path, dataToSend, notification)
 }
+$(".add-to-cart").click(function(e) {
+    const dataToSend = {
+        id
+    }
+
+    const notification = {
+        type: 'info',
+        title: 'Successful',
+        text: 'item has been added to Cart'
+    }
+    const path = `/add-to-cart/${ele.attr("data-id")}`
+    sendData(path, dataToSend, notification)
+    console.log('done');
+
+});

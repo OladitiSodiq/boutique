@@ -85,9 +85,17 @@
                   <div class="image d-flex align-items-center justify-content-center"><img src="img/{{ $product->image }}" alt="product" class="img-fluid">
                     <div class="hover-overlay d-flex align-items-center justify-content-center">
                       <div class="CTA d-flex align-items-center justify-content-center">
-                          <a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button">
+                          {{-- <a class="" role="button"   > <i class="fa fa-shopping-cart"></i>Add to Cart</a> --}}
+                          {{-- <a href="addToCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})"  class="add-to-cart" role="button"> --}}
+                              {{-- <div class="add-to-cart" onclick="addToCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})">
                         <i class="fa fa-shopping-cart"></i>
-                      </a>
+                              </div> --}}
+                              {{-- <div class="col-1 text-center" onclick="deleteCart({{ $product['id'] }},{{ $product['quantity'] }},{{ $product['price'] }})" ><i class="delete fa fa-trash"  ></i>
+                              </div> <a href="javascript:myfunc()">.--}}
+                              {{-- <a class="col-1 text-center" onclick="addToCart({{ $product['id'] }})" >  <i class="add fa fa-shopping-cart"></i>
+                              </div> --}}
+                              {{-- <a  onclick="addToCart({{ $product['id'] }})"><i class="add fa fa-shopping-cart"></i></a> --}}
+                              <a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button" > <i class="fa fa-shopping-cart"></i></a>
                       <a href="{{ url('wishlist/'.$product->id) }}" data-id="{{ $product->id }}" class="wishlists" role="button">
                         <i class="fa fa-heart"></i>
                       </a> 
@@ -278,7 +286,7 @@
 
     @section('scripts')
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(".add-to-cart").click(function (e) {
             e.preventDefault();
 
@@ -349,7 +357,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
 @stop
     

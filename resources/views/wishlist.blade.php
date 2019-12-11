@@ -41,7 +41,7 @@
                                 <div class="item col-xl-3 col-lg-4 col-md-6">
                                   <div class="product is-gray">
                                     <div class="image d-flex align-items-center justify-content-center">
-                                      <div class="ribbon ribbon-primary text-uppercase">Sale</div><img src="img/{{ $product->image }}" alt="product" class="img-fluid">
+                                      <div class="ribbon ribbon-primary text-uppercase">Sale</div><img src="img/{{ $product->photo }}" alt="product" class="img-fluid">
                                       <div class="hover-overlay d-flex align-items-center justify-content-center">
                                         <div class="CTA d-flex align-items-center justify-content-center"><a href="{{ url('add-to-cart/'.$product->id) }}" data-id="{{ $product->id }}" class="add-to-cart" role="button"><i class="fa fa-shopping-cart"></i></a><a href="detail.html" class="visit-product active">
                                             <i class="icon-search"></i>View

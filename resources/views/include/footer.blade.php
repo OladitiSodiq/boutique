@@ -59,9 +59,9 @@
         <div class="site-links col-lg-2 col-md-6">
           <h5 class="text-uppercase">Company</h5>
           <ul class="list-unstyled">
-            <li> <a href="#">Login</a></li>
-            <li> <a href="#">Register</a></li>
-            <li> <a href="#">Wishlist</a></li>
+            <li> <a href="/customer-login">Login</a></li>
+            <li> <a href="/customer-login">Register</a></li>
+            <li> <a href="/whishlist">Wishlist</a></li>
             <li> <a href="#">Our Products</a></li>
             <li> <a href="#">Checkouts</a></li>
           </ul>
@@ -83,7 +83,7 @@
     <div class="container">
       <div class="row d-flex align-items-center">
         <div class="text col-md-6">
-          <p>&copy; 2018<a href="https://ondrejsvestka.cz/" target="_blank">Ondrej Svestka </a> All rights reserved.</p>
+          <p>&copy; 2018<a href="https://oladitisodiq.github.io/" target="_blank">oladiti sodiq</a> All rights reserved.</p>
         </div>
         <div class="payment col-md-6 clearfix">
           <ul class="payment-list list-inline-item pull-right">

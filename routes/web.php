@@ -14,19 +14,19 @@
 Route::get('/', 'c_ustomer@productLandingPage')->name('home');
 Route::post('/ajax-desc', 'c_ustomer@ajaxDesc')->name('ajax.desc');
 Route::get('/product-{id}', 'c_ustomer@productDesc');
-Route::get('/add-to-cart/{id}', 'c_ustomer@addToCart');
+ 
 
-Route::get('/cart', 'c_ustomer@showCart');
-Route::patch('/update-cart/{id}', 'c_ustomer@updateCart');
+//Cart CONTROLLER 
+Route::get('/add-to-cart/{id}', 'cartController@addToCart');
+Route::get('/cart', 'cartController@showCart');
+Route::patch('/update-cart/{id}', 'cartController@updateCart');
+Route::post('/deleteCart', 'cartController@deleteCart');
+Route::post('/updateCart', 'cartController@updateCart');
+Route::get('/cart', 'cartController@showCart');
 
-Route::post('/deleteCart', 'c_ustomer@deleteCart');
-
-
-Route::post('/updateCart', 'c_ustomer@updateCart');
-Route::get('/wishlist/{id}', 'c_ustomer@addTowishlist');
-
-Route::get('/cart', 'c_ustomer@showCart');
-Route::get('/whishlist', 'c_ustomer@wishlist');
+//wishlist CONTROLLER 
+Route::get('/wishlist/{id}', 'wishlistController@addTowishlist');
+Route::get('/whishlist', 'wishlistController@wishlist');
 
 Route::get('/customer-login', function () {
   if (Session::get('logged_in')) {
@@ -54,7 +54,6 @@ Route::group(['middleware' => ['isAdmin', 'isValidUser']], function () {
 
   Route::get('/customer-order', 'c_ustomer@order_view');
   Route::get('/customer-orders', 'c_ustomer@orders_view');
-  Route::post('/add-new-product', 'c_ustomer@add_food');
   // Route::post('/account_update', 'c_ustomer@');
   Route::get('/change_password', 'c_ustomer@chnge_pword');
   // Route::get('/catalogue', 'ProductController@productCatalogue');
@@ -79,8 +78,8 @@ Route::group(['middleware' => ['isAdmin', 'isValidUser']], function () {
   //   return view('dashboard.settings');
   // })->name('dashboard.settings');
 
-  // Route::fallback(function () {
-  //   return response()->view('dashboard.404', [], 404);
-  // });
+  Route::fallback(function () {
+    return response()->view('dashboard.404', [], 404);
+  });
 
 });

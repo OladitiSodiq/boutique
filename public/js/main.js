@@ -1,105 +1,105 @@
-function addItemToCart(id) {
-    // e.preventDefault();
-    // alert(id);
-    var product_id = $('#btn-item-' + id).attr('pk_id');
-    // alert(product_id);
+// function addItemToCart(id) {
+//     // e.preventDefault();
+//     // alert(id);
+//     var product_id = $('#btn-item-' + id).attr('pk_id');
+//     // alert(product_id);
 
-    // var price = $('#price' + id).val();
+//     // var price = $('#price' + id).val();
 
-    if (!product_id || isNaN(product_id)) {
-        // alert('a');
-        return false;
-    } else {
+//     if (!product_id || isNaN(product_id)) {
+//         // alert('a');
+//         return false;
+//     } else {
 
-        var qty = 1;
-        var data = {
-            product_id,
-            qty
-        };
-        // alert(data);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        jQuery.ajax({
-            type: "POST",
-            url: "/add-to-cart",
-            data: data,
-            dataType: "json",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//         var qty = 1;
+//         var data = {
+//             product_id,
+//             qty
+//         };
+//         // alert(data);
+//         $.ajaxSetup({
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+//             }
+//         });
+//         jQuery.ajax({
+//             type: "POST",
+//             url: "/add-to-cart",
+//             data: data,
+//             dataType: "json",
+//             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 
-            beforeSend: function() {
-                $(this).attr('disabled', true);
-            },
-            success: function(data) {
-                // alert(data);
+//             beforeSend: function() {
+//                 $(this).attr('disabled', true);
+//             },
+//             success: function(data) {
+//                 // alert(data);
 
-                switch (data.error_no) {
+//                 switch (data.error_no) {
 
-                    case 1:
-                        sessionStorage.setItem("cart", data.json);
-                        $('#cart-qty').html(data.count);
-                        notify('info', 'Successful', data.item.name + ' has been added to your cart.');
-                        var div = '';
-                        div += '<div class="product-widget" id="product-widget-' + data.item.id + '">';
-                        div += '    <div class="product-img">';
-                        div += '        <img src="/antique/' + data.item.photo + '" alt="">';
-                        div += '    </div>';
-                        div += '    <div class="product-body">';
-                        div += '        <h3 class="product-name"><a href="/antique-desc/' + data.item.id + '/' + data.item.slug + '"> ' + data.item.name + ' </a></h3>';
-                        div += '        <h4 class="product-price"><span class="qty" id="product-quantity-' + data.item.id + '">' + data.item.quantity + 'x</span>$<span id="product-price-' + data.item.id + '">' + data.item.price + '</span></h4>';
-                        div += '    </div>';
-                        div += '    <button onclick="deleteItemInCart(' + data.item.id + ', ' + data.item.quantity + ', ' + data.item.price + ')" class="delete"><i class="fa fa-close"></i></button>';
-                        div += '</div>';
-                        if (data.count == 1) {
-                            var t = '<div class="cart-list">';
-                            var b = '</div>';
-                            b += '<div class="cart-summary">'
-                            b += '<h5>TOTAL: $<span id="cart-total"> ' + data.item.price + '</span>.00</h5>'
-                            b += '</div>'
-                            b += '<div class="cart-btns">'
-                            b += '<a href="/cart">View Cart</a>'
-                            b += '<a href="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>'
-                            b += '</div>';
-                            $('#cart-empty-text').hide();
-                            $('.cart-dropdown').append(t + div + b);
-                        } else {
-                            var total = parseInt($('#cart-total').text());
-                            total = total + parseInt(data.item.price);
-                            $('#cart-total').text(total);
-                            $('.cart-list').append(div);
-                        }
+//                     case 1:
+//                         sessionStorage.setItem("cart", data.json);
+//                         $('#cart-qty').html(data.count);
+//                         notify('info', 'Successful', data.item.name + ' has been added to your cart.');
+//                         var div = '';
+//                         div += '<div class="product-widget" id="product-widget-' + data.item.id + '">';
+//                         div += '    <div class="product-img">';
+//                         div += '        <img src="/antique/' + data.item.photo + '" alt="">';
+//                         div += '    </div>';
+//                         div += '    <div class="product-body">';
+//                         div += '        <h3 class="product-name"><a href="/antique-desc/' + data.item.id + '/' + data.item.slug + '"> ' + data.item.name + ' </a></h3>';
+//                         div += '        <h4 class="product-price"><span class="qty" id="product-quantity-' + data.item.id + '">' + data.item.quantity + 'x</span>$<span id="product-price-' + data.item.id + '">' + data.item.price + '</span></h4>';
+//                         div += '    </div>';
+//                         div += '    <button onclick="deleteItemInCart(' + data.item.id + ', ' + data.item.quantity + ', ' + data.item.price + ')" class="delete"><i class="fa fa-close"></i></button>';
+//                         div += '</div>';
+//                         if (data.count == 1) {
+//                             var t = '<div class="cart-list">';
+//                             var b = '</div>';
+//                             b += '<div class="cart-summary">'
+//                             b += '<h5>TOTAL: $<span id="cart-total"> ' + data.item.price + '</span>.00</h5>'
+//                             b += '</div>'
+//                             b += '<div class="cart-btns">'
+//                             b += '<a href="/cart">View Cart</a>'
+//                             b += '<a href="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>'
+//                             b += '</div>';
+//                             $('#cart-empty-text').hide();
+//                             $('.cart-dropdown').append(t + div + b);
+//                         } else {
+//                             var total = parseInt($('#cart-total').text());
+//                             total = total + parseInt(data.item.price);
+//                             $('#cart-total').text(total);
+//                             $('.cart-list').append(div);
+//                         }
 
-                        $('#btn-item-' + id).html('<a id="btn-go-to-cart" href="/cart">Item in Cart »</a>');
+//                         $('#btn-item-' + id).html('<a id="btn-go-to-cart" href="/cart">Item in Cart »</a>');
 
-                        return;
-                    case 2:
-                        //    console.log('data.count')
-                        // console.log(data.count)
-                        // console.log('data.json')
-                        // console.log(data.json)
-                        return;
-                    case 3:
-                        // alert(data.msg)
-                        return;
-                    default:
-                        $(this).attr('disabled', false);
-                        return;
+//                         return;
+//                     case 2:
+//                         //    console.log('data.count')
+//                         // console.log(data.count)
+//                         // console.log('data.json')
+//                         // console.log(data.json)
+//                         return;
+//                     case 3:
+//                         // alert(data.msg)
+//                         return;
+//                     default:
+//                         $(this).attr('disabled', false);
+//                         return;
 
-                }
-                // $('#btnCoinBuy').attr('disabled', false);
+//                 }
+//                 // $('#btnCoinBuy').attr('disabled', false);
 
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-        // alert(bid_price)
+//             },
+//             error: function(error) {
+//                 console.log(error);
+//             }
+//         });
+//         // alert(bid_price)
 
 
-    }
-}
+//     }
+// }
 
 function notify(type, title, text) {
     new PNotify({
